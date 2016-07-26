@@ -40,7 +40,8 @@ let DataSet = React.createClass({
 		stroke: React.PropTypes.string,
 		fill: React.PropTypes.string,
 		opacity: React.PropTypes.number,
-		x: React.PropTypes.func.isRequired
+		x: React.PropTypes.func.isRequired,
+		showLabels: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
@@ -65,7 +66,8 @@ let DataSet = React.createClass({
 			 x,
 			 y,
 			 onMouseEnter,
-			 onMouseLeave} = this.props;
+			 onMouseLeave,
+             showLabels} = this.props;
 
 		let wedges = pie.map((e, index) => {
 			function midAngle(d){
@@ -92,19 +94,23 @@ let DataSet = React.createClass({
 				onMouseLeave={onMouseLeave}
 					/>
 
-					<polyline
-				opacity={opacity}
-				strokeWidth={strokeWidth}
-				stroke={stroke}
-				fill={fill}
-				points={[arc.centroid(e), outerArc.centroid(e), linePos]}
-					/>
-
-					<text
-				dy=".35em"
-				x={labelPos[0]}
-				y={labelPos[1]}
-				textAnchor={textAnchor}>{x(e.data)}</text>
+                        {showLabels &&
+                            <polyline
+                                opacity={opacity}
+                                strokeWidth={strokeWidth}
+                                stroke={stroke}
+                                fill={fill}
+                                points={[arc.centroid(e), outerArc.centroid(e), linePos]}
+                            />
+                        }
+                        {showLabels &&
+                            <text
+                                dy=".35em"
+                                x={labelPos[0]}
+                                y={labelPos[1]}
+                                textAnchor={textAnchor}>{x(e.data)}
+                            </text>
+                        }
 					</g>
 			);
 		});
@@ -129,7 +135,8 @@ let PieChart = React.createClass({
 		labelRadius: React.PropTypes.number,
 		padRadius: React.PropTypes.string,
 		cornerRadius: React.PropTypes.number,
-		sort: React.PropTypes.any
+		sort: React.PropTypes.any,
+        showLabels: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
@@ -163,7 +170,8 @@ let PieChart = React.createClass({
 			 sort,
 			 x,
 			 y,
-			 values} = this.props;
+			 values,
+             showLabels} = this.props;
 
 		let [innerWidth,
 			 innerHeight] = [this._innerWidth,
@@ -218,6 +226,7 @@ let PieChart = React.createClass({
 			y={y}
 			onMouseEnter={this.onMouseEnter}
 			onMouseLeave={this.onMouseLeave}
+            showLabels={showLabels}
 				/>
 				</g>
 				{ this.props.children }

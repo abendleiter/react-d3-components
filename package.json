@@ -1,11 +1,12 @@
 {
 	"name": "react-d3-components",
-	"version": "0.6.4",
+	"version": "0.6.4.1",
 	"description": "D3 components for React",
+	"private": true,
 	"main": "lib/index.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/codesuki/react-d3-components.git"
+		"url": "https://github.com/abendleiter/react-d3-components"
 	},
 	"keywords": [
 		"d3",
@@ -38,6 +39,7 @@
 	"scripts": {
 		"prepublish": "babel -c -d ./lib ./src/",
 		"postpublish": "rm -r ./lib",
+		"preinstall": "babel -c -d ./lib ./src/",
 		"build:js": "webpack && webpack --config webpack.config.min.js"
 	}
 }
