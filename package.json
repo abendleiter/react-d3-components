@@ -1,6 +1,6 @@
 {
 	"name": "react-d3-components",
-	"version": "0.6.4-abend.2",
+	"version": "0.6.4-abend.3",
 	"description": "D3 components for React",
 	"private": true,
 	"main": "lib/index.js",
