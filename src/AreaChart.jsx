@@ -20,13 +20,21 @@ let DataSet = React.createClass({
 		area: React.PropTypes.func.isRequired,
 		line: React.PropTypes.func.isRequired,
 		colorScale: React.PropTypes.func.isRequired,
-		stroke: React.PropTypes.func.isRequired
+		stroke: React.PropTypes.func.isRequired,
+		renderLines: React.PropTypes.bool,
+	},
+
+	getDefaultProps() {
+		return {
+			renderLines: false,
+		};
 	},
 
 	render() {
 		let {data,
 			 area,
 			 line,
+			 renderLines,
 			 colorScale,
 			 stroke,
 			 values,
@@ -61,7 +69,8 @@ let DataSet = React.createClass({
 		});
 
 		return (
-				<g>
+			<g>
+				{renderLines && lines}
 				{areas}
 			</g>
 		);
@@ -79,13 +88,15 @@ let AreaChart = React.createClass({
 
 	propTypes: {
 		interpolate: React.PropTypes.string,
-		stroke: React.PropTypes.func
+		stroke: React.PropTypes.func,
+		renderLines: React.PropTypes.bool,
 	},
 
 	getDefaultProps() {
 		return {
 			interpolate: 'linear',
-			stroke: d3.scale.category20()
+			stroke: d3.scale.category20(),
+			renderLines: false,
 		};
 	},
 
@@ -133,6 +144,7 @@ let AreaChart = React.createClass({
 			 width,
 			 margin,
 			 colorScale,
+			 renderLines,
 			 interpolate,
 			 stroke,
 			 offset,
@@ -183,6 +195,7 @@ let AreaChart = React.createClass({
 			values={values}
 			onMouseEnter={this.onMouseEnter}
 			onMouseLeave={this.onMouseLeave}
+			renderLines={renderLines}
 				/>
 
 				<Axis
